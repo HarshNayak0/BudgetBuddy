@@ -1,0 +1,47 @@
+.container {
+    padding-top: 70px;
+}
+.form-group {
+    margin-bottom: 20px; /* Add margin between form fields */
+}
+.row {
+    padding: 20px;
+}
+.card-body {
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.large-text {
+    font-size: 2.5rem
+}
+
+.category-card {
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    max-width: 100%;
+    height: 110px;
+    object-fit: cover;
+}
+
+.input-box {
+    display: hidden;
+}
+
+.card:hover .input-box {
+    display: block;
+}
+
+.show-input {
+    display: block !important;  
+}

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="container">
+        <form class="needs-validation form-inline" action="/logger" method="POST" novalidate>
+                <div class="row form-row align-items-center">
+                    <div class="col-md-4">
+                        <div class="d-flex flex-column">
+                            <label for="amount">{{ log_type }} Amount</label>
+                            <input type="number" class="form-control" name="amount" placeholder="Ex: 500.00" required>
+                        </div>
+                    {% if error %}
+                        <div class="text-danger">
+                            {{ log_type }} amount is required and must be a positive number.
+                        </div>
+                    {% endif %}
+                    {% if log_type == "Expense" %}
+                        <div class="col-md-4">
+                            <div class="d-flex flex-column">
+                                <label for="category">Category</label>
+                                <select class="form-select" id="category" name="category" required>
+                                    <option selected>Choose</option>
+                                    {% for category in expense_categories %}
+                                        <option value="{{ category }}">{{ category }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if error %}
+                                    <div class="text-danger">
+                                        Please select a category.
+                                    </div>
+                                {% endif %}
+                            </div>
+                    {% elif log_type == "Income" %}
+                        <div class="col-md-4">
+                            <div class="d-flex flex-column">
+                                <label for="category">Category</label>
+                                <select class="form-select" id="category" name="category" required>
+                                    <option selected>Choose</option>
+                                    {% for category in income_categories %}
+                                        <option value="{{ category }}">{{ category }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if error %}
+                                    <div class="text-danger">
+                                        Please select a category.
+                                    </div>
+                                {% endif %}
+                            </div>
+                    {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-4">
+                            <label for="datepicker" class="form-label">Date of {{ log_type }}</label>
+                            <input type="date" class="form-control" id="datepicker" name="date">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex flex-column">
+                            <label for="description">Brief Description of {{  log_type }}</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="(optional)" style="height:200px"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-auto align-self-end">
+                        <button type="submit" class="btn btn-primary">Log {{ log_type }}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}

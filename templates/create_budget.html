@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1> Create a Monthly Budget</h1>
+            </div>
+        </div>
+        <form action="/create_budget" method="POST" class="form-group">
+            <div class="form-row">
+                <div class="col w-50">
+                    <label for="totalbudget">Total Budget</label>
+                    <input type="number" class="form-control" name="totalbudget" placeholder="Ex: 3000">
+                    {% if error %}
+                        <div class="text-danger"> Please fill out budget field.</div>
+                    {% endif %}
+                    {% if budget_exists %}
+                        <div class="text-danger">Budget already exists. Delete old budget to create new one</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Create Budget</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

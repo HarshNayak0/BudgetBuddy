@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                    <h1>Total Budget: {{ totalbudget }}</h1>
+                    <div class="progress mt-3 w-50">
+                        <div class="progress-bar" role="progressbar" style="width: {{ (usedBudget / totalbudget) * 100 }}%;" aria-valuenow="{{ usedBudget }}" aria-valuemin="0" aria-valuemax="{{ totalbudget }}">{{ usedBudget }} / {{ totalbudget }}</div>     
+                </div>
+                <h5 class="mt-3 text-success">
+                    {{ msg }}
+                </h5>
+            </div>
+            <div class="col-auto">
+                <form action="/delete_budget" method="POST">
+                    <button type="submit" class="btn btn-danger btn-lg mt-2">Delete Budget</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="category-card card rounded shadow">
+                    <h5 class="card-title text-center mt-3">
+                        Budget Allocation
+                    </h5>
+                    <input type="hidden" id="hiddenDataset" value="{{ dataset }}">
+                    <div>
+                        <canvas id="budgetDataChart" style="padding: 30px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="category-card card rounded shadow">
+                        {% if get %}
+                            <div class="row ml-4">
+                                <h5 class="card-title mt-3">Compare budget with expenses:</h5>
+                                <form action="/view_budget" method="POST">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="monthSelect">Select Month</label>
+                                            <select class="form-control form-select" name="month_select" id="monthSelect">
+                                                {% for month in months %}
+                                                    <option value="{{ month }}">{{ month }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="yearSelect">Select Year</label>
+                                        <select class="form-control form-select" name="year_select" id="yearSelect">
+                                            {% for year in years %}
+                                                <option value="{{ year }}">{{ year }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    {% if noData %}
+                                        <div class="row">
+                                            <h5 class="text-danger">No expenses recorded for chosen time frame.</h5>
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-group col-md-6">
+                                        <button type="submit" class="btn btn-primary">Compare</button>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        {% else %}
+                            <h5 class="card-title text-center mt-3">
+                                Expense Distribution for {{ selected_month }}/{{ selected_year }}
+                            </h5>
+                            <input type="hidden" id="compareExpenseHidden" value="{{ compare_dataset }}">
+                            <div>
+                                <canvas id="expenseDataChart" style="padding: 30px;"></canvas>
+                            </div>
+                        {% endif %}
+                    
+                </div>
+            </div>       
+         </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+{% endblock %}

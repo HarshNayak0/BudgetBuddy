@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-left">
+                <h1>
+                    Welcome {{ name }}
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card pl-1 shadow rounded" style="height:250px">
+                    <div class="card-body">
+                        <h5 class="card-title">Income in Last 30 days</h5>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for income_row in income %}
+                                            <tr>
+                                                <td>{{ income_row.date }}</td>
+                                                <td style="color: green">{{ income_row.amount }}</td>
+                                                <td>{{ income_row.category }}</td>
+                                                <td>{{ income_row.description | truncate(10, '...') }}</td>
+                                            </tr>
+                                        {% endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        <a href="/income" class="btn btn-primary">View More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card pl-1 shadow rounded" style="height:250px">
+                    <div class="card-body">
+                        <h5 class="card-title">Expenses in Last 30 days</h5>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for expense_row in expenses %}
+                                        <tr>
+                                            <td>{{ expense_row.date }}</td>
+                                            <td style="color: red">{{ expense_row.amount }}</td>
+                                            <td>{{ expense_row.category }}</td>
+                                            <td>{{ expense_row.description | truncate(10, '...') }}</td>
+                                        </tr>
+                                    {% endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="/expenses" class="btn btn-primary">View More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card pl-1 shadow rounded" style="height:250px">
+                <div class="card-body">
+                    <h5 class="card-title">Net Income in Last 30 Days</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {% if loss %}
+                                    <div class="strong"><span class="text-danger large-text">${{ net }}</span> is how much money you've lost in the last 30 days.</div>
+                                    <div class="text-danger strong">{{ msg }}</div>
+                                {% else %}
+                                    <div class="strong"><span class="text-success large-text">${{ net }}</span> is how much money you've net in the last 30 days.</div>
+                                    <div class="text-success strong">{{ msg }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <div class="strong">
+                                    <span class="text-success large-text">${{ totalincome }}</span> is your total income for the last 30 days.
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="strong">
+                                    <span class="text-danger large-text">${{ totalexpenses }}</span> is the total amount spent on expenses for the last 30 days.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

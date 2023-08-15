@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Total Budget: {{ totalbudget }}</h1>
+            </div>
+        </div>
+            <div class="row">
+                <form class="form-group" action="/allocate_budget" method="POST">
+                    <input type="hidden" name="totalbudget" value="{{ totalbudget }}">
+                    <div class="row">
+                        {% for category in expense_categories %}
+                            <div class="col-md-2 mb-4">
+                                <div class="card category-card rounded shadow">
+                                    <img class="card-img-top" src="/static/{{ category }}.jpeg" alt="{{ category }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center font-weight-bold">
+                                            {{ category }}
+                                        </h5>
+                                        <div class="d-flex justify-content-center align-items-center mb-2">
+                                            <input type="text" name="{{ category }}" class="input-box w-50" placeholder="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% if error%}
+                            <div class="row">
+                                <h5 class="text-danger">Allocations have exceeded the total budget.</h5>
+                            </div>
+                        {% endif %}
+                        <div class="d-flex justify-content-left">
+                            <button type="submit" class="btn btn-primary">Allocate</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+{% endblock %}

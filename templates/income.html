@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <h1>
+                    Income Logs of All Time
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card shadow rounded mx-auto">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Delete Log</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for income_row in rows %}
+                                <tr>
+                                    <td>{{ income_row.date }}</td>
+                                    <td style="color: green">{{ income_row.amount }}</td>
+                                    <td>{{ income_row.category }}</td>
+                                    <td>{{ income_row.description }}</td>
+                                    <td>
+                                        <form action="{{ url_for('delete', table='income', id=income_row.id) }}" method="POST">
+                                            <button type="submit" class="btn btn-danger btn-sm">Del</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor%}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

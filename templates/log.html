@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="container">
+        <form class="needs-validation form-inline" action="/log" method="POST" novalidate>
+            <div class="form-row w-50">
+                <div class="d-flex flex-column">
+                    <label for="type">Select Log Type</label>
+                    <select class="form-select" id="type" name="log_type" required>
+                        <option selected>Choose</option>
+                        <option value="Expense">Expense</option>
+                        <option value="Income">Income</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Log</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+                
+{% endblock %}
